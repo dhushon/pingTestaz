@@ -50,14 +50,14 @@ You have logged in. Now let us find all the subscriptions to which you have acce
 # setup the vm
 create a resource group in eastus... note that this will want to become a variable sometime as we build and test multiple
 ```
-az group create --name myResourceGroup --location eastus
+az group create --name pingTestGroup --location eastus
 ```
 ```
 {
-  "id": "/subscriptions/83d88eb1-d24a-4302-9d28-b6ec4de5f205/resourceGroups/pingTest",
+  "id": "/subscriptions/$someSubscription/resourceGroups/pingTest",
   "location": "eastus",
   "managedBy": null,
-  "name": "pingTest",
+  "name": "pingTestGroup",
   "properties": {
     "provisioningState": "Succeeded"
   },
@@ -82,8 +82,28 @@ az vm create \
   "powerState": "VM running",
   "privateIpAddress": "10.0.0.4",
   "publicIpAddress": "40.xx.xx.xx",
-  "resourceGroup": "pingTest",
+  "resourceGroup": "pingTestgroup",
   "zones": ""
 }
 ```
+# we are now ready to test
+test shelling into box
+```
+ssh $username@$publicIpAddress
+```
+```
+The authenticity of host '40.xx.xx.xx (40.xx.xx.xx)' can't be established.
+ECDSA key fingerprint is SHA256:$someSHA.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '40.xx.xx.xx' (ECDSA) to the list of known hosts.
+Welcome to Ubuntu 18.04.4 LTS (GNU/Linux 5.0.0-1032-azure x86_64)
+
+more message stuff
+
+$
+```
+# microsoft turns ICPM off so we need to do a TCP test
+
+
+
 
